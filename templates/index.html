@@ -3,3 +3,10 @@
 <h1>The recipe repository</h1>
 <p></p>
 <h3>Welcome!</h3>
+<p></p>
+{% if session.user_id %}
+You are logged in as {{ session.username }}
+<br><a href="/logout">Log out</a>
+{% else %}
+<a href="/login">Log in</a>
+{% endif %}
