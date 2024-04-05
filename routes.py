@@ -1,10 +1,11 @@
 from flask import render_template, request, redirect
 from app import app
 import users
+import recipes
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    return render_template("index.html", recipes=recipes.get_list_recipes())
 
 @app.route("/login", methods=["get","post"])
 def login():
@@ -42,3 +43,28 @@ def signup():
             return render_template("error.html", message="Sign-up unsuccessful")
 
         return redirect("/")
+
+@app.route("/recipe/<int:recipe_id>")
+def recipe(recipe_id):
+    recipe_data = recipes.get_recipe(recipe_id)
+    
+    if recipe_data:
+        name, creator, ingredients, instructions = recipe_data[0], recipe_data[1], recipe_data[2], recipe_data[3]
+        ingredients_list = ingredients.split(",")
+        return render_template("recipe.html", name=name, creator=creator, ingredients=ingredients_list, instructions=instructions)
+    else:
+        return render_template("error.html", message="Recipe does not exist")
+
+@app.route("/addrecipe", methods=["get","post"])
+def addrecipe():
+    if request.method == "GET":
+        return render_template("addrecipe.html")
+    if request.method == "POST":
+        name = request.form["name"]
+        ingredients = request.form["ingredients"]
+        instructions = request.form["instructions"]
+        recipe_id = recipes.new_recipe(name, ingredients, instructions)
+        if recipe_id is not None:
+            return redirect("/recipe/" + str(recipe_id))
+        else:
+            return render_template("error.html", message="Recipe could not be added")

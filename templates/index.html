@@ -4,7 +4,17 @@
 <p></p>
 <h3>Welcome!</h3>
 <p></p>
+
+<ul>
+    {% for recipe in recipes %}
+    <li><a href="/recipe/{{recipe.id}}">{{recipe.name}}</a></li>
+    {% endfor %}
+</ul>
+
+
 {% if session.user_id %}
+<a href="/addrecipe">Add new recipe</a>
+<p></p>
 You are logged in as {{ session.username }}
 <br><a href="/logout">Log out</a>
 {% else %}

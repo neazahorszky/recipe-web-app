@@ -1,0 +1,14 @@
+<h2>{{ name }}</h2>
+<h5>by {{ creator }}</h5>
+<p></p>
+<p></p>
+<h4>Ingredients:</h4>
+<ul>
+    {% for ingredient in ingredients %}
+    <li>{{ ingredient }}</li>
+    {% endfor %}
+</ul>
+<p></p>
+<h4>How to prepare:</h4>
+<p>{{ instructions }}</p>
+
