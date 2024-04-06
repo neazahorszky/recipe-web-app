@@ -52,7 +52,9 @@ def recipe(recipe_id):
     if recipe_data:
         name, creator, ingredients, instructions = recipe_data[0], recipe_data[1], recipe_data[2], recipe_data[3]
         ingredients_list = ingredients.split(",")
-        return render_template("recipe.html", name=name, creator=creator, ingredients=ingredients_list, instructions=instructions, recipe_id=recipe_id)
+        reviews_list = reviews.get_reviews(recipe_id)
+        return render_template("recipe.html", name=name, creator=creator, ingredients=ingredients_list, instructions=instructions, \
+            recipe_id=recipe_id, reviews_list=reviews_list)
     else:
         return render_template("error.html", message="Recipe does not exist")
 

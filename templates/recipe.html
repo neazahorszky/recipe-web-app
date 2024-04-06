@@ -18,3 +18,10 @@
 {% else %}
 <a href="/login">Log in</a> to review recipe
 {% endif %}
+<p>&nbsp;</p>
+
+{% for review in reviews_list %}
+<p><b>{{ review[1] }}/10 by {{ review[0] }}</b></p>
+<p>{{ review[2] }}</p>
+<p>&nbsp;</p>
+{% endfor %}

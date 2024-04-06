@@ -14,4 +14,7 @@ def new_review(recipe_id, rating, comment):
 
 
 def get_reviews(recipe_id):
-    ...
+    sql = text("SELECT u.name, r.rating, r.comment FROM users u, reviews r WHERE r.recipe_id = :recipe_id AND u.id = r.user_id")
+    reviews = db.session.execute(sql, {"recipe_id": recipe_id}).fetchall()
+    db.session.commit()
+    return reviews
