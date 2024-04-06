@@ -2,6 +2,7 @@ from flask import render_template, request, redirect
 from app import app
 import users
 import recipes
+import reviews
 
 @app.route("/")
 def index():
@@ -51,7 +52,7 @@ def recipe(recipe_id):
     if recipe_data:
         name, creator, ingredients, instructions = recipe_data[0], recipe_data[1], recipe_data[2], recipe_data[3]
         ingredients_list = ingredients.split(",")
-        return render_template("recipe.html", name=name, creator=creator, ingredients=ingredients_list, instructions=instructions)
+        return render_template("recipe.html", name=name, creator=creator, ingredients=ingredients_list, instructions=instructions, recipe_id=recipe_id)
     else:
         return render_template("error.html", message="Recipe does not exist")
 
@@ -68,3 +69,18 @@ def addrecipe():
             return redirect("/recipe/" + str(recipe_id))
         else:
             return render_template("error.html", message="Recipe could not be added")
+
+@app.route("/review/<int:recipe_id>", methods=["get", "post"])
+def review(recipe_id):
+    recipe_data = recipes.get_recipe(recipe_id)
+    recipe_name = recipe_data[0]
+    if request.method == "GET":
+        return render_template("review.html", recipe_name=recipe_name, recipe_id=recipe_id)
+    if request.method == "POST":
+        rating = request.form["rating"]
+        comment = request.form["comment"]
+        create_review = reviews.new_review(recipe_id, rating, comment)
+        if create_review:
+            return redirect("/recipe/" + str(recipe_id))
+        else:
+            return render_template("error.html", message="Review could not be added")

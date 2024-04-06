@@ -4,7 +4,6 @@ from db import db
 
 def new_recipe(name, ingredients, instructions):
     creator = session["user_id"]
-    print(name, ingredients, instructions)
     sql = text("INSERT INTO recipes (name, user_id, ingredients, instructions) VALUES (:name, :user_id, :ingredients, :instructions) RETURNING id")
     obj = db.session.execute(sql, {"name":name, "user_id":creator, "ingredients": ingredients, "instructions": instructions})
     for i in obj:

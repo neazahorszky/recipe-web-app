@@ -16,6 +16,7 @@ CREATE TABLE recipes (
 CREATE TABLE reviews (
     id SERIAL PRIMARY KEY,
     user_id INTEGER REFERENCES users(id),
+    recipe_id INTEGER REFERENCES recipes(id),
     rating INTEGER,
     comment TEXT
 );

@@ -11,4 +11,10 @@
 <p></p>
 <h4>How to prepare:</h4>
 <p>{{ instructions }}</p>
+<p>&nbsp;</p>
 
+{% if session.user_id %}
+<a href="/review/{{recipe_id}}">Review this recipe</a>
+{% else %}
+<a href="/login">Log in</a> to review recipe
+{% endif %}
