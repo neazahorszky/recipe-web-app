@@ -7,7 +7,7 @@ App features:
 - Users can sign in and out and create a new user account  
 - Users can click on a recipe to see its details (ingredients needed and the instructions for preparing the food)  
 - Users can rate recipes (stars and comment) and read others' reviews  
-<br>
+  <br>
 How to test the web-app:  
 - Clone this repository to your computer and go to its root folder  
 - Create .env file with the following content:  
