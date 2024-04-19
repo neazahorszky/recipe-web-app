@@ -1,16 +1,21 @@
-<!DOCTYPE html>
+{% extends "layout.html" %}
+{% block title %}Sign-up{% endblock %}
+{% block content %}
+
+<h2>Sign-up</h2>
+<p>&nbsp;</p>
+
 <form action="/signup" method="POST">
-Username: <input type="text" name="username" required>
-<p></p>
-Password: <input type="password" name="password1" required>
-<p></p>
-Repeat password: <input type="password" name="password2" required>
-<p></p>
-User role:
-<select name="role">
-<option value=1> regular user
-<option value=2> administrator
-</select>
-<p></p>
-<input type="submit" value="Sign up">
+    <p>Username: <input type="text" name="username" required></p>
+    <p>Password: <input type="password" name="password1" required></p>
+    <p>Repeat password: <input type="password" name="password2" required></p>
+    User role:
+    <select name="role">
+        <option value=1> regular user
+        <option value=2> administrator
+    </select>
+    <p>&nbsp;</p>
+    <input type="submit" value="Sign up">
 </form>
+
+{% endblock %}

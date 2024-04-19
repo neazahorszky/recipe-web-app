@@ -1,7 +1,9 @@
-<!DOCTYPE html>
-<title>start page</title>
-<h1>The recipe repository</h1>
-<p></p>
+{% extends "layout.html" %}
+{% block title %}Homepage{% endblock %}
+{% block content %}
+
+<body>
+<h2>Homepage</h2>
 <h3>Welcome!</h3>
 <p></p>
 
@@ -20,3 +22,6 @@ You are logged in as {{ session.username }}
 {% else %}
 <a href="/login">Log in</a>
 {% endif %}
+</body>
+
+{% endblock %}

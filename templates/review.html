@@ -1,4 +1,7 @@
-<!DOCTYPE html>
+{% extends "layout.html" %}
+{% block title %}Homepage{% endblock %}
+{% block content %}
+
 <title>Review</title>
 <h3>Reviewing recipe: {{recipe_name}}</h3>
 <p></p>
@@ -24,3 +27,5 @@
     <input type="submit" value="Submit review">
 
 </form>
+
+{% endblock %}

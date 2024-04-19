@@ -1,0 +1,13 @@
+body {
+    margin: 5vh 20vw;
+}
+
+header {
+    background-color: rgb(100, 59, 146);
+    margin: -5vh -20vw 10vh -20vw;
+}
+
+h1, h2, h3, h4, h5, h6  {
+    padding: 2% 0%;
+}
+
