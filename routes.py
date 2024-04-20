@@ -86,3 +86,9 @@ def review(recipe_id):
             return redirect("/recipe/" + str(recipe_id))
         else:
             return render_template("error.html", message="Review could not be added")
+
+@app.route("/search")
+def search_result():
+    query = request.args["query"]
+    matching_recipes = recipes.search_recipes(query)
+    return render_template("search.html", query=query, recipes=matching_recipes)

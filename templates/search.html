@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block title %}Search results{% endblock %}
+{% block content %}
+
+<h3>Search results for "{{query}}"</h3>
+<p>
+
+<ul>
+    {% for recipe in recipes %}
+    <li><a href="/recipe/{{recipe.id}}">{{recipe.name}}</a></li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

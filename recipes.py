@@ -22,3 +22,9 @@ def get_recipe(recipe_id):
                 WHERE r.id = :id AND u.id = r.user_id''')
 
     return db.session.execute(sql, {"id" : recipe_id}).fetchone()
+
+def search_recipes(query: str):
+    sql = text("""SELECT id, name FROM recipes 
+                WHERE LOWER(name) LIKE LOWER(:query) OR LOWER(ingredients) LIKE LOWER(:query) OR LOWER(instructions) LIKE LOWER(:query)""")
+    matching_recipes = db.session.execute(sql, {"query": "%"+query+"%"}).fetchall()
+    return matching_recipes
