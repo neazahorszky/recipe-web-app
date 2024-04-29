@@ -3,10 +3,20 @@ from app import app
 import users
 import recipes
 import reviews
+import categories
 
-@app.route("/")
+@app.route("/", methods=["get","post"])
 def index():
-    return render_template("index.html", recipes=recipes.get_list_recipes())
+    browse_categories = False
+    if request.method == "POST":
+        by_category = request.form["browse_categories"]
+        if by_category == "True":
+            browse_categories = True
+        else:
+            browse_categories = False
+        return render_template("index.html", recipes=recipes.get_list_recipes(), browse_categories=browse_categories, categories=categories.get_categories())
+
+    return render_template("index.html", recipes=recipes.get_list_recipes(), browse_categories=browse_categories, categories=categories.get_categories())
 
 @app.route("/login", methods=["get","post"])
 def login():
@@ -86,6 +96,12 @@ def review(recipe_id):
             return redirect("/recipe/" + str(recipe_id))
         else:
             return render_template("error.html", message="Review could not be added")
+
+@app.route("/category/<int:category_id>")
+def category(category_id):
+    category_name, category_description = categories.get_category(category_id)
+    recipes_in_category = categories.get_recipes_category(category_id)
+    return render_template("category.html", category_name=category_name, category_description=category_description, recipes=recipes_in_category)
 
 @app.route("/search")
 def search_result():

@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block title %} {{category_name}} {% endblock %}
+{% block content %}
+
+<h2>{{category_name}}</h2>
+{{category_description}}
+<p>&nbsp;</p>
+
+<ul>
+    {% for recipe in recipes %}
+    <li><a href="/recipe/{{recipe.id}}">{{recipe.name}}</a></li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

@@ -23,7 +23,8 @@ CREATE TABLE reviews (
 
 CREATE TABLE categories (
     id SERIAL PRIMARY KEY,
-    name TEXT
+    name TEXT,
+    description TEXT
 );
 
 CREATE TABLE recipes_categorized (

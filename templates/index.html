@@ -7,13 +7,36 @@
 <h3>Welcome!</h3>
 <p></p>
 
+<form action="/" method="post" style="display: inline-block;">
+    <input type="hidden" name="browse_categories" value="False">
+    <input type="submit" value="Browse all recipes">
+</form>
+
+<form action="/" method="post" style="display: inline-block;">
+    <input type="hidden" name="browse_categories" value="True">
+    <input type="submit" value="Browse by category">
+</form>
+
+<p>&nbsp;</p>
+
+{% if not browse_categories %}
 <ul>
     {% for recipe in recipes %}
     <li><a href="/recipe/{{recipe.id}}">{{recipe.name}}</a></li>
     {% endfor %}
 </ul>
+{% endif %}
+
+{% if browse_categories %}
+<ul>
+    {% for category in categories %}
+    <li><a href="/category/{{category.id}}">{{category.name}}</a></li>
+    {% endfor %}
+</ul>
+{% endif %}
 
 
+<p>&nbsp;</p>
 {% if session.user_id %}
 <a href="/addrecipe">Add new recipe</a>
 <p></p>
