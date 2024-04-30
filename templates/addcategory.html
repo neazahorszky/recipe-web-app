@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block title %} Add category {% endblock %}
+{% block content %}
+
+<h2>Add new category</h2>
+<p>&nbsp;</p>
+
+<form action="/addcategory" method="POST">
+    <p>Name of category: <input type="text" name="name" required></p>
+    <p>Description:</p>
+    <p><textarea name="description" rows="4" cols="60" required></textarea></p>
+    <p></p>
+    <input type="submit" value="Create category">
+</form>
+
+{% endblock %}

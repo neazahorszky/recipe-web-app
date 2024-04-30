@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block title %} Add recipes to category {% endblock %}
+{% block content %}
+
+<h2>Add recipes to category "{{category.name}}"</h2>
+<p>&nbsp;</p>
+
+<form action="/addtocategory/{{category_id}}" method="POST">
+    <p>Choose recipes:</p>
+    {% for recipe in recipes %}
+    <p><input type="checkbox" name="recipe" value="{{recipe.id}}"> {{recipe.name}}</p>
+    {% endfor %}
+    <p><input type="submit" value="Add to category"></p>
+</form>
+
+{% endblock %}

@@ -101,7 +101,31 @@ def review(recipe_id):
 def category(category_id):
     category_name, category_description = categories.get_category(category_id)
     recipes_in_category = categories.get_recipes_category(category_id)
-    return render_template("category.html", category_name=category_name, category_description=category_description, recipes=recipes_in_category)
+    return render_template("category.html", category_id=category_id, category_name=category_name, category_description=category_description, recipes=recipes_in_category)
+
+@app.route("/addcategory", methods=["get","post"])
+def add_category():
+    if request.method == "GET":
+        return render_template("addcategory.html")
+    if request.method == "POST":
+        name = request.form["name"]
+        description = request.form["description"]
+        category_id = categories.add_category(name, description)
+        if category_id:
+            return redirect("/category/" + str(category_id))
+        return render_template("error.html", message="Category could not be added")
+
+@app.route("/addtocategory/<int:category_id>", methods=["get","post"])
+def addtocategory(category_id):
+    if request.method == "GET":
+        category = categories.get_category(category_id)
+        return render_template("addtocategory.html", category_id=category_id, category=category, recipes=recipes.get_list_recipes())
+    if request.method == "POST":
+        recipe_list = request.form.getlist("recipe")
+        added = categories.add_to_category(category_id, recipe_list)
+        if added:
+            return redirect("/category/" + str(category_id))
+        return render_template("error.html", message="Recipe(s) could not be added to category")
 
 @app.route("/search")
 def search_result():
