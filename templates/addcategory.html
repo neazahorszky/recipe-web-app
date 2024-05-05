@@ -11,6 +11,7 @@
     <p><textarea name="description" rows="4" cols="60" required></textarea></p>
     <p></p>
     <input type="submit" value="Create category">
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 </form>
 
 {% endblock %}

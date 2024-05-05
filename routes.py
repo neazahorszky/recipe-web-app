@@ -58,8 +58,6 @@ def signup():
 @app.route("/recipe/<int:recipe_id>")
 def recipe(recipe_id):
     recipe_data = recipes.get_recipe(recipe_id)
-
-    
     if recipe_data:
         name, creator, ingredients, instructions = recipe_data[0], recipe_data[1], recipe_data[2], recipe_data[3]
         ingredients_list = ingredients.split(",")
@@ -75,6 +73,8 @@ def addrecipe():
     if request.method == "GET":
         return render_template("addrecipe.html")
     if request.method == "POST":
+        token = request.form["csrf_token"]
+        users.check_csrf(token)
         name = request.form["name"]
         ingredients = request.form["ingredients"]
         instructions = request.form["instructions"]
@@ -91,6 +91,8 @@ def review(recipe_id):
     if request.method == "GET":
         return render_template("review.html", recipe_name=recipe_name, recipe_id=recipe_id)
     if request.method == "POST":
+        token = request.form["csrf_token"]
+        users.check_csrf(token)
         rating = request.form["rating"]
         comment = request.form["comment"]
         create_review = reviews.new_review(recipe_id, rating, comment)
@@ -110,6 +112,8 @@ def add_category():
     if request.method == "GET":
         return render_template("addcategory.html")
     if request.method == "POST":
+        token = request.form["csrf_token"]
+        users.check_csrf(token)
         name = request.form["name"]
         description = request.form["description"]
         category_id = categories.add_category(name, description)
@@ -123,6 +127,8 @@ def addtocategory(category_id):
         category = categories.get_category(category_id)
         return render_template("addtocategory.html", category_id=category_id, category=category, recipes=recipes.get_list_recipes())
     if request.method == "POST":
+        token = request.form["csrf_token"]
+        users.check_csrf(token)
         recipe_list = request.form.getlist("recipe")
         added = categories.add_to_category(category_id, recipe_list)
         if added:

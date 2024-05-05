@@ -11,6 +11,7 @@
     <p><input type="checkbox" name="recipe" value="{{recipe.id}}"> {{recipe.name}}</p>
     {% endfor %}
     <p><input type="submit" value="Add to category"></p>
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 </form>
 
 {% endblock %}
