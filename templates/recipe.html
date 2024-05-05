@@ -3,9 +3,15 @@
 {% block content %}
 
 <h2>{{ name }}</h2>
-<h5>by {{ creator }}</h5>
-<p></p>
-<p></p>
+<h6>by {{ creator }}</h6>
+<hr>
+{% if avg_rating %}
+<p><div class="Stars" style="--rating: {{avg_rating}};">  <h6 style="display: inline;"><b>{{avg_rating}}</b> ({{ratings_count}} reviews)</h6></div></p>
+{% else %}
+<p><div>  <h6 style="display: inline;"> No reviews yet </h6></div></p>
+{% endif %}
+<p>&nbsp;</p>
+
 <h4>Ingredients:</h4>
 <ul>
     {% for ingredient in ingredients %}

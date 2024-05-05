@@ -58,13 +58,15 @@ def signup():
 @app.route("/recipe/<int:recipe_id>")
 def recipe(recipe_id):
     recipe_data = recipes.get_recipe(recipe_id)
+
     
     if recipe_data:
         name, creator, ingredients, instructions = recipe_data[0], recipe_data[1], recipe_data[2], recipe_data[3]
         ingredients_list = ingredients.split(",")
         reviews_list = reviews.get_reviews(recipe_id)
-        return render_template("recipe.html", name=name, creator=creator, ingredients=ingredients_list, instructions=instructions, \
-            recipe_id=recipe_id, reviews_list=reviews_list)
+        avg_rating, ratings_count = reviews.get_average_rating(recipe_id)
+        return render_template("recipe.html", name=name, creator=creator, avg_rating=avg_rating, ratings_count=ratings_count, \
+            ingredients=ingredients_list, instructions=instructions, recipe_id=recipe_id, reviews_list=reviews_list)
     else:
         return render_template("error.html", message="Recipe does not exist")
 

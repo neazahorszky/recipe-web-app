@@ -12,9 +12,13 @@ def new_review(recipe_id, rating, comment):
     except:
         return False
 
-
 def get_reviews(recipe_id):
     sql = text("SELECT u.name, r.rating, r.comment FROM users u, reviews r WHERE r.recipe_id = :recipe_id AND u.id = r.user_id")
     reviews = db.session.execute(sql, {"recipe_id": recipe_id}).fetchall()
     db.session.commit()
     return reviews
+
+def get_average_rating(recipe_id):
+    sql = text("SELECT ROUND(AVG(rating), 1), COUNT(id) FROM reviews WHERE recipe_id = :recipe_id")
+    avg_rating = db.session.execute(sql, {"recipe_id": recipe_id}).fetchone()
+    return avg_rating
